@@ -50,7 +50,7 @@ export default function ProductsHome() {
         <button className="px-3 py-1 rounded bg-slate-700 text-slate-200" onClick={() => setSort("alphabetical")}>Sort by A-Z</button>
         <button className="px-3 py-1 rounded bg-slate-700 text-slate-200" onClick={() => setSort("clear")}>Clear</button>
       </div>
-      <section className="bg-zinc-100 my-3 grid lg:grid-cols-3 gap-10 p-5">
+      <section className="bg-zinc-100 my-3 grid lg:grid-cols-3 gap-10 p-5 shadow-mb rounded">
         {products.map((prod: ProductProps) => (
           <CardProduct
             key={prod.id}
