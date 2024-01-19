@@ -3,9 +3,11 @@
 import CardProduct from "@/components/productHome/cardProduct";
 import { useEffect, useState } from "react";
 import { ProductProps } from "@/providers/types/product";
+import SkeletonCard from "./SkeletonCard";
 
 export default function ProductsHome() {
   const [products, setProducts] = useState<ProductProps[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [sort, setSort] = useState("");
 
   const fetchData = async () => {
@@ -41,6 +43,7 @@ export default function ProductsHome() {
 
   useEffect(() => {
     fetchData();
+    setIsLoading(false);
   }, []);
 
   return (
@@ -51,6 +54,7 @@ export default function ProductsHome() {
         <button className="px-3 py-1 rounded bg-slate-700 text-slate-200" onClick={() => setSort("clear")}>Clear</button>
       </div>
       <section className="bg-zinc-100 my-3 grid lg:grid-cols-3 gap-10 p-5 shadow-mb rounded">
+        {isLoading && [...products].fill({name: "", description: "", id: "", price: ""}).map((d, i) => <SkeletonCard key={i}/>)}
         {products.map((prod: ProductProps) => (
           <CardProduct
             key={prod.id}
