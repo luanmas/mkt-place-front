@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 
-const Login = () => {
+export default function Login () {
 
     
   const userSchema = z.object({
@@ -47,5 +47,3 @@ const Login = () => {
     </div>
   )
 }
-
-export default Login;
