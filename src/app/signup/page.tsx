@@ -4,18 +4,18 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
 
-const Login = () => {
+export default function SignUp() {
 
-    
-  const userSchema = z.object({
+  const createUserSchema = z.object({
     name: z.string().min(5, "Mínimo de 5 caracteres").max(15, "Máximo de 15 caracteres"),
     email: z.string().email("Email inválido"),
+    password: z.string().min(5, "Mínimo de 5 caracteres").max(15, "Máximo de 15 caracteres")
   })
 
-  type userFormData = z.infer<typeof userSchema>;
+  type createUserFormData = z.infer<typeof createUserSchema>;
   
-  const { register, handleSubmit, formState: { errors } } = useForm<userFormData>({
-    resolver: zodResolver(userSchema),
+  const { register, handleSubmit, formState: { errors } } = useForm<createUserFormData>({
+    resolver: zodResolver(createUserSchema),
   });
 
   const onSubmit = (data:any) => {
@@ -26,7 +26,7 @@ const Login = () => {
     <div 
         className='absolute top-[50%] left-[50%] bg-zinc-200 translate-x-[-50%] translate-y-[-50%] flex flex-col px-2 py-3 rounded'
     >
-        <h2 className='text-3xl font-semibold pb-3'>Login</h2>
+        <h2 className='bg-red-500 text-3xl font-semibold pb-3'>Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col'>
             <label htmlFor="name">
                 Nome de usuário
@@ -40,12 +40,16 @@ const Login = () => {
             <input className='px-2 py-0.5 mb-1.5' {...register("email")} type="text" id="email"/>
             <span className={`${errors.email ? "block" : "opacity-0"} text-red-400 h-[20px] text-xs`}>{errors?.email?.message}</span>
 
+            <label htmlFor="password">
+                Senha
+            </label>
+            <input className='px-2 py-0.5 mb-1.5' {...register("password")} type="text" id="password"/>
+            <span className={`${errors.password ? "block" : "opacity-0"} text-red-400 h-[20px] text-xs`}>{errors?.password?.message}</span>
+
             <button className='text-zinc-100 bg-emerald-300 py-1 px-2 font-semibold' type="submit">
-                Login
+                Sign Up
             </button>
         </form>
     </div>
   )
 }
-
-export default Login;
