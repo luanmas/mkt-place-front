@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import z from 'zod';
-import { postUser } from '@/providers/api';
+import { postUser } from '@/providers/api/user';
 import { useState } from 'react';
 
 type userCreate = {
