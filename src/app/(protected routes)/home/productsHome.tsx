@@ -2,18 +2,27 @@
 
 import CardProduct from "@/components/productHome/cardProduct";
 import { useEffect, useState } from "react";
-import { ProductProps } from "@/providers/types/product";
-import SkeletonCard from "./SkeletonCard";
+import { IProduct } from "@/providers/types/product";
+import { productAPI } from "@/providers/api/products";
 
 export default function ProductsHome() {
-  const [products, setProducts] = useState<ProductProps[]>([]);
+  const [products, setProducts] = useState<IProduct[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [sort, setSort] = useState("");
 
-  const fetchData = async () => {
-    const productsList: ProductProps[] = await fetch("https://657f3bdd6ae0629a3f531552.mockapi.io/products2").then(res => res.json());
-    setProducts(productsList);
+  const fetchProducts = async () => {
+    try {
+      const response = await productAPI.getAll();
+      setProducts(response);
+    } catch (err) {
+      console.log(err);
+    }
   }
+  
+  useEffect(() => {
+    fetchProducts();
+    setIsLoading(false);
+  }, []);
 
   const handleSort = () => {
     switch (sort) {
@@ -41,11 +50,6 @@ export default function ProductsHome() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sort]);
 
-  useEffect(() => {
-    fetchData();
-    setIsLoading(false);
-  }, []);
-
   return (
     <>
       <div>
@@ -54,13 +58,13 @@ export default function ProductsHome() {
         <button className="px-3 py-1 rounded bg-slate-700 text-slate-200" onClick={() => setSort("clear")}>Clear</button>
       </div>
       <section className="bg-zinc-100 my-3 grid lg:grid-cols-3 gap-10 p-5 shadow-mb rounded">
-        {isLoading && [...products].fill({name: "", description: "", id: "", price: ""}).map((d, i) => <SkeletonCard key={i}/>)}
-        {products.map((prod: ProductProps) => (
+        {products.map((prod: IProduct) => (
           <CardProduct
             key={prod.id}
             name={prod.name}
-            desc={prod.description}
+            description={prod.description}
             price={prod.price}
+            id={prod.id}
           />
         ))}
       </section>

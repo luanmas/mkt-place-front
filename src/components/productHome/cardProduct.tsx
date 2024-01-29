@@ -1,6 +1,8 @@
+import { IProduct } from "@/providers/types/product";
 import { Eye } from "lucide-react";
+import Link from "next/link";
 
-const CardProduct = ({ name, price }: any) => {
+const CardProduct = ({ name, price, id }: IProduct) => {
   return (
     <div className="bg-zinc-200 px-2 py-2 flex flex-col justify-between rounded shadow-sm">
         <div className="bg-zinc-500 h-[200px] rounded">
@@ -13,7 +15,9 @@ const CardProduct = ({ name, price }: any) => {
           </div>
           <div>
             <button>
-              <Eye />
+              <Link href={`/home/${id}`}>
+                  <Eye />
+              </Link>
             </button>
           </div>
         </div>
