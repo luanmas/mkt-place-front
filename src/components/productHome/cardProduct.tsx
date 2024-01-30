@@ -15,7 +15,7 @@ const CardProduct = ({ name, price, id }: IProduct) => {
           </div>
           <div>
             <button>
-              <Link href={`/home/${id}`}>
+              <Link href={`/home/products/${id}`}>
                   <Eye />
               </Link>
             </button>

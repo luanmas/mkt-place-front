@@ -7,7 +7,7 @@ import { productAPI } from "@/providers/api/products";
 
 export default function ProductsHome() {
   const [products, setProducts] = useState<IProduct[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [sort, setSort] = useState("");
 
   const fetchProducts = async () => {
@@ -21,7 +21,7 @@ export default function ProductsHome() {
   
   useEffect(() => {
     fetchProducts();
-    setIsLoading(false);
+    // setIsLoading(false);
   }, []);
 
   const handleSort = () => {
